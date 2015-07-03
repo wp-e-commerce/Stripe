@@ -43,7 +43,7 @@ class WPSC_Stripe {
 	}
 
 	public static function add_actions() {
-		add_action( 'wpsc_init', array( self::$instance, 'init' ) );
+		add_action( 'wpsc_init', array( self::$instance, 'init' ), 2 );
 
 		/* Defined in checkout-fields.php */
 		add_action( 'wpsc_init', 'pw_wpsc_stripe_checkout_fields' );
@@ -61,8 +61,6 @@ class WPSC_Stripe {
 	}
 
 	public function register_gateway( $gateways ) {
-
-		self::$instance->init();
 
 		$num = max( array_keys( $gateways ) ) + 1;
 
