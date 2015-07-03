@@ -43,17 +43,17 @@ class WPSC_Stripe {
 	}
 
 	public static function add_actions() {
-		add_action( 'wpsc_init', array( $this, 'init' ) );
+		add_action( 'wpsc_init', array( self::$instance, 'init' ) );
 
 		/* Defined in checkout-fields.php */
 		add_action( 'wpsc_init', 'pw_wpsc_stripe_checkout_fields' );
-		
+
 		/* Defined in stripe-functions.php */
 		add_action( 'wpec_members_deactivate_subscription', 'pw_wpsc_cancel_stripe' );
 	}
 
 	public static function add_filters() {
-		add_filter( 'wpsc_merchants_modules', array( $this, 'register_gateway' ), 50 );	
+		add_filter( 'wpsc_merchants_modules', array( self::$instance, 'register_gateway' ), 50 );
 	}
 
 	public function init() {
@@ -61,13 +61,16 @@ class WPSC_Stripe {
 	}
 
 	public function register_gateway( $gateways ) {
-		$num = max( $gateways ) + 1;
-		
+
+		self::$instance->init();
+
+		$num = max( array_keys( $gateways ) ) + 1;
+
 		$gateways[ $num ] = array(
 			'name'                   => 'Stripe',
 			'api_version'            => 2.0,
 			'has_recurring_billing'  => true,
-			'display_name'           => __( 'Credit Card' ),	
+			'display_name'           => __( 'Credit Card' ),
 			'image'                  => WPSC_URL . '/images/cc.gif',
 			'wp_admin_cannot_cancel' => false,
 			'requirements' => array(
@@ -79,9 +82,9 @@ class WPSC_Stripe {
 			'internalname'    => 'wpsc_stripe'
 		);
 
-		return $gateways; 
+		return $gateways;
 	}
 
 }
 
-add_action( 'plugins_loaded', 'WPSC_Stripe::get_instance' );
+add_action( 'wpsc_pre_init', 'WPSC_Stripe::get_instance' );
