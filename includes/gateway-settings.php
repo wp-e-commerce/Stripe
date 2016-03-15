@@ -17,6 +17,7 @@ function pw_wpsc_stripe_settings_form() {
 		
 		$secret_key = $payment_mode == 'test' ? $stripe_test_secret_key : $stripe_live_secret_key;
 		Stripe::setApiKey($secret_key);
+		Stripe::setApiVersion("2016-02-29");
 		$account_info = Stripe_Account::retrieve();
 		
 		if (in_array(strtolower($currency_code), $account_info->currencies_supported) ) {
