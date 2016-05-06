@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Stripe Payment Gateway for WP e-Commerce
-Plugin URI: http://www.getshopped.org
-Description: Integrate the Stripe Payment Gateway into WordPress and WP e-Commerce.
+Plugin Name: Stripe Payment Gateway for WP eCommerce
+Plugin URI: https://wpecommerce.org
+Description: Integrate the Stripe Payment Gateway into WP eCommerce.
 Version: 2.1
-Author: GetShopped.org
-Author URI:  http://www.getshopped.org
+Author: WpeCommerce.org
+Author URI:  https://wpecommerce.org
 */
 
 defined( 'WPINC' ) || die;
